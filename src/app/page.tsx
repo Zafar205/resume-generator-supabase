@@ -26,7 +26,7 @@ export default async function Home() {
   } = session
 
   const { name, email, full_name, avatar_url } = user_metadata;
-  const userName = full_name ? `@${full_name}` : "Username not set"
+  const userName = full_name ? `@${full_name}` : email
 
   console.log(session);
 

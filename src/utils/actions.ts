@@ -31,3 +31,42 @@ export async function signOut(){
     await supabase.auth.signOut();
     redirect("/auth")
 }
+
+export async function signUpWithEmailPassword (prev :any , formData : any){
+    const supabase = await createClient();
+    const {data, error} = await supabase.auth.signUp({
+        email : formData.get("email"),
+        password : formData.get("password")
+    })
+
+    if(error){
+        console.log("error",error);
+        return {
+            success : null,
+            error : error.message,
+        }
+    }
+
+    return {
+        success : "Please check your Email",
+        error : null
+    }
+}
+export async function signInWithEmailPassword (prev: any, formData: any) {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.get("email"),
+        password: formData.get("password")
+    });
+
+    if (error) {
+        console.log("error", error);
+        return {
+            success: null,
+            error: error.message,
+        };
+    }
+    console.log(data);
+    // Redirect to homepage after successful login
+    redirect("/");
+}
